@@ -1,0 +1,15 @@
+SHOW DATABASES;
+USE PRACTICES;
+SHOW TABLES;
+SELECT Product, Price,
+       MAX(Price) OVER () AS MaxPrice,
+       MIN(Price) OVER () AS MinPrice
+FROM Groceries;
+SELECT Product, Price
+FROM (
+  SELECT Product, Price,
+         RANK() OVER (ORDER BY Price DESC) AS PriceRankDesc,
+         RANK() OVER (ORDER BY Price ASC) AS PriceRankAsc
+  FROM Groceries
+) AS Subquery
+WHERE PriceRankDesc = 1;
