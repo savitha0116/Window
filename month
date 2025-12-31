@@ -1,0 +1,11 @@
+show database;
+use practices;
+show tables;
+SELECT 
+  Product,
+  Month,
+  Price,
+  LAG(Price) OVER (PARTITION BY Product ORDER BY Month) AS PreviousMonthPrice,
+  LEAD(Price) OVER (PARTITION BY Product ORDER BY Month) AS NextMonthPrice
+FROM Groceries
+ORDER BY Product, Month;
